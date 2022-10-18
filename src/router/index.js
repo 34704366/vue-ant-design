@@ -2,6 +2,12 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 
+// 404可以不用异步
+import NotFound from "../views/404";
+
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -110,7 +116,12 @@ const routes = [
       },
     ],
   },
-
+  {
+    // 404页面
+    path: "*",
+    name: "404",
+    component: NotFound,
+  },
   {
     path: "/",
     name: "Home",
@@ -126,11 +137,25 @@ const routes = [
   },
 ];
 // 创建router的函数
-const createRouter = () =>
-  new VueRouter({
+const createRouter = () => {
+  let router = new VueRouter({
     mode: "history",
     routes: routes,
   });
+
+  // 路由守卫函数（路由跳转时的钩子函数） to:将要执行的路由， form：现在的路由，
+  // next：需要最后调用next函数resolve这个钩子函数
+  router.beforeEach((to, form, next) => {
+    NProgress.start();
+    next();
+  });
+  // 路由守卫的结束
+  router.afterEach(() => {
+    NProgress.done();
+  });
+
+  return router;
+};
 
 // 自动创建
 const router = createRouter();

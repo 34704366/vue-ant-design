@@ -2,8 +2,8 @@
   <div>
     <Header></Header>
     <sider-menu></sider-menu>
-    <Footer></Footer>
     <router-view></router-view>
+    <Footer></Footer>
   </div>
 </template>
 
