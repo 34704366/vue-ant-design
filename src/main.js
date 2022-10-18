@@ -3,7 +3,16 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+// 引入全部，会引入所有的组件，占用内存较大（可以用babel按需引入）
+// import antd from "ant-design-vue"
+
+// import 'ant-design-vue/dist/antd.less';
+// import "ant-design-vue/lib/button/style"    // 使用babel之后可以不用再单独引入样式
+
+import { Button } from "ant-design-vue";
+
 Vue.config.productionTip = false;
+Vue.use(Button); // 全局注册
 
 new Vue({
   router,
