@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>footer</div>
+    <div>Ant Design ©2022 Created by Wang</div>
   </div>
 </template>
 
