@@ -143,10 +143,14 @@ const createRouter = () => {
     routes: routes,
   });
 
-  // 路由守卫函数（路由跳转时的钩子函数） to:将要执行的路由， form：现在的路由，
+  // 路由守卫函数（路由跳转时的钩子函数） to:将要执行的路由， from：现在的路由，
   // next：需要最后调用next函数resolve这个钩子函数
-  router.beforeEach((to, form, next) => {
-    NProgress.start();
+  router.beforeEach((to, from, next) => {
+    if (to.path !== from.path) {
+      // 同path的情况下不会显示进度条
+      // 显示进度条，需要在守卫结束的时候取消掉
+      NProgress.start();
+    }
     next();
   });
   // 路由守卫的结束
